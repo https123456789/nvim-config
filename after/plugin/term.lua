@@ -1,0 +1,7 @@
+vim.keymap.set("n", "<leader>tm", vim.cmd.FloatermNew)
+vim.keymap.set("t", "<C-t>", vim.cmd.FloatermNew)
+vim.keymap.set("t", "<C-q>", function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.cmd(string.format("%dFloatermKill", buf))
+    vim.cmd("FloatermShow")
+end)
