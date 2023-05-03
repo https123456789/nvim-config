@@ -1,3 +1,4 @@
 require("ben")
 
---vim.cmd("colorscheme tokyonight-night")
+--vim.cmd("Neotree")
+--vim.cmd("NeoTreeFocus")
