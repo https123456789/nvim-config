@@ -11,7 +11,27 @@ neotree.setup({
             ["l"] = "toggle_node",
             ["l"] = "open"
         }
+    },
+    filesystem = {
+        filtered_items = {
+            visible = true,
+            hide_dotfiles = true,
+            hide_gitignored = true,
+        },
     }
 })
 
-vim.cmd.Neotree()
+-- Open the file explorer if no specific file is opened
+local arg = vim.fn.argv()[1]
+if arg == nil or arg == "." then
+    -- Save the current window and buffer
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_get_current_buf()
+
+    -- Open Neotree
+    vim.cmd.Neotree()
+
+    -- Switch focus back to the starting window and buffer
+    vim.api.nvim_set_current_win(win)
+    vim.api.nvim_set_current_buf(buf)
+end
