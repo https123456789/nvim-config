@@ -3,6 +3,9 @@
 -- Mark the current file
 vim.keymap.set("n", "<leader>hm", require("harpoon.mark").add_file)
 
+-- Unmark the current file
+vim.keymap.set("n", "<leader>hr", require("harpoon.mark").rm_file)
+
 -- Harpoon to the next file
 vim.keymap.set("n", "<leader>hn", require("harpoon.ui").nav_next)
 

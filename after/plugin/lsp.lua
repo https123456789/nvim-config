@@ -17,7 +17,8 @@ local servers = {
     "rust_analyzer",
     --"ccls",
     "cmake",
-    "lua_ls"
+    "lua_ls",
+    "html", "cssls"
 }
 
 for _, lsp in ipairs(servers) do
