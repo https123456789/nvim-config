@@ -100,4 +100,7 @@ return require('packer').startup(function(use)
             vim.cmd("colorscheme carbonfox")
         end
     })
+
+    -- LaTeX
+    use 'lervag/vimtex'
 end)
