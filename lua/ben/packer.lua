@@ -89,18 +89,20 @@ return require('packer').startup(function(use)
 
     -- Color Schemes
 	use 'folke/tokyonight.nvim'
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine'
-    })
     use 'bluz71/vim-moonfly-colors'
+    use({
+        'catppuccin/nvim',
+        config = function()
+            vim.cmd("colorscheme catppuccin-mocha")
+        end
+    })
     use({
         'EdenEast/nightfox.nvim',
         config = function()
             vim.cmd("colorscheme carbonfox")
         end
     })
-
+    
     -- LaTeX
     use 'lervag/vimtex'
 end)
