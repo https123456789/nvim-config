@@ -6,8 +6,7 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
-
-	use 'rstacruz/vim-closer'
+use 'rstacruz/vim-closer'
 
 	use {
 		'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -85,7 +84,10 @@ return require('packer').startup(function(use)
             }
         end
     }
-    use 'j-hui/fidget.nvim'
+    use {
+        'j-hui/fidget.nvim',
+        tag = "legacy"
+    }
 
     -- Color Schemes
 	use 'folke/tokyonight.nvim'
@@ -99,7 +101,7 @@ return require('packer').startup(function(use)
     use({
         'EdenEast/nightfox.nvim',
         config = function()
-            vim.cmd("colorscheme carbonfox")
+            -- vim.cmd("colorscheme carbonfox")
         end
     })
     
