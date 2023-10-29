@@ -20,3 +20,6 @@ vim.keymap.set("n", "<C-Down>", "<C-w>J")
 
 -- NeoTree
 vim.keymap.set("n", "<leader>nt", vim.cmd.Neotree)
+
+-- Lazy Git
+vim.keymap.set("n", "<leader>lg", vim.cmd.LazyGit)
