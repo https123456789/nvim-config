@@ -107,4 +107,13 @@ use 'rstacruz/vim-closer'
     
     -- LaTeX
     use 'lervag/vimtex'
+
+    -- Git Stuff
+    use({
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
+    })
 end)
