@@ -1,15 +1,24 @@
--- Context highlight
-vim.cmd("highlight IndentBlanklineContextChar guifg=#FFFFFF gui=nocombine")
-vim.cmd("highlight IndentBlanklineContextStart guisp=#FFFFFF gui=underline")
+local hooks = require "ibl.hooks"
 
--- Alternating Greys
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#333333 gui=nocombine]]
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "IblCustomIndentHighlight", { fg = "#313244" })
+    vim.api.nvim_set_hl(0, "IblCustomScopeHighlight", { fg = "#45475a" })
+end)
 
-require("indent_blankline").setup {
-    show_current_context = true,
-    --show_current_context_start = true,
-    use_treesitter = true,
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
+require("ibl").setup {
+    enabled = true,
+    indent = {
+        smart_indent_cap = true,
+        highlight = {
+            "IblCustomIndentHighlight"
+        }
     },
+    scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        highlight = {
+            "IblCustomScopeHighlight"
+        }
+    }
 }
