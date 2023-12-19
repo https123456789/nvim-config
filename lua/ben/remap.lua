@@ -23,3 +23,9 @@ vim.keymap.set("n", "<leader>nt", vim.cmd.Neotree)
 
 -- Lazy Git
 vim.keymap.set("n", "<leader>lg", vim.cmd.LazyGit)
+
+-- Tabs
+vim.keymap.set("n", "<leader>to", vim.cmd.tabnew)
+vim.keymap.set("n", "<leader>tq", vim.cmd.tabclose)
+vim.keymap.set("n", "<leader>tn", vim.cmd.tabnext)
+vim.keymap.set("n", "<leader>tp", vim.cmd.tabprevious)
