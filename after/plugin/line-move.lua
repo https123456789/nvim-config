@@ -1,5 +1,22 @@
 local opts = { noremap = true, silent = true }
 
+require('move').setup({
+	line = {
+		enable = true,
+		indent = true
+	},
+	block = {
+		enable = true,
+		indent = true
+	},
+	word = {
+		enable = true,
+	},
+	char = {
+		enable = true
+	}
+})
+
 -- Normal-mode commands
 vim.keymap.set('n', '<A-j>', ':MoveLine(1)<CR>', opts)
 vim.keymap.set('n', '<A-k>', ':MoveLine(-1)<CR>', opts)
