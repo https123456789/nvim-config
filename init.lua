@@ -17,3 +17,4 @@ require("set")
 
 -- Load lazy
 require("lazy").setup("plugins", {})
+vim.keymap.set("n", "<leader>lz", vim.cmd.Lazy)
