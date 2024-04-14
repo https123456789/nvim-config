@@ -8,5 +8,22 @@ return {
     },
     keys = {
         { "<leader>nt", "<cmd>Neotree toggle<cr>", desc = "Neotree" }
+    },
+    opts = {
+        close_if_last_window = true,
+        open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+        window = {
+            mappings = {
+                ["l"] = "toggle_node",
+                ["l"] = "open"
+            }
+        },
+        filesystem = {
+            filtered_items = {
+                visible = true,
+                hide_dotfiles = false,
+                hide_gitignored = true,
+            },
+        }
     }
 }
