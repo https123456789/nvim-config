@@ -16,7 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 require("set")
 
 -- Load lazy
-require("lazy").setup("plugins", {})
+require("lazy").setup({
+    { import = "plugins" },
+    { import = "plugins.lsp" }
+}, {})
 vim.keymap.set("n", "<leader>lz", vim.cmd.Lazy)
 
 -- Load any extra keymaps

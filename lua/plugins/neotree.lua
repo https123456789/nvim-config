@@ -13,6 +13,7 @@ return {
         close_if_last_window = true,
         open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
         window = {
+            position = "float",
             mappings = {
                 ["l"] = "toggle_node",
                 ["l"] = "open"
