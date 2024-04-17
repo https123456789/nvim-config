@@ -66,5 +66,6 @@ return {
     {
         "j-hui/fidget.nvim",
         lazy = false,
+        opts = {} -- Weird problem with omitting this line
     }
 }
