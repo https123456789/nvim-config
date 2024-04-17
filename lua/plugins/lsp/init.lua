@@ -2,22 +2,6 @@ return {
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
-        config = function ()
-            --[[local lsp_zero = require("lsp-zero")
-            lsp_zero.on_attach(function(client, buffer)
-                lsp_zero.default_keymaps({ buffer = buffer })
-            end)
-
-            local lspconfig = require("lspconfig")
-
-            lspconfig.rust_analyzer.setup({
-                settings = {
-                    ["rust-analyzer"] = {
-                        checkOnSave = { command = "clippy" }
-                    }
-                }
-            })]]
-        end,
         init = function ()
             vim.g.lsp_zero_extend_cmp = 0
             vim.g.lsp_zero_extend_lspconfig = 0
