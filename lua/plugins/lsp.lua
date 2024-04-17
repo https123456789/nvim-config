@@ -35,10 +35,6 @@ return {
             local lsp_zero = require("lsp-zero")
             lsp_zero.extend_lspconfig()
 
-            lsp_zero.on_attach(function(client, buffer)
-                lsp_zero.default_keymaps({ buffer = buffer })
-            end)
-
             -- mason.nvim must be setup before mason-lspconfig
             require("mason").setup({})
 
@@ -67,5 +63,5 @@ return {
         "j-hui/fidget.nvim",
         lazy = false,
         opts = {} -- Weird problem with omitting this line
-    }
+    },
 }
