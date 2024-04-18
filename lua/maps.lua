@@ -11,7 +11,3 @@ vim.keymap.set("n", "<leader>to", vim.cmd.tabnew)
 vim.keymap.set("n", "<leader>tq", vim.cmd.tabclose)
 vim.keymap.set("n", "<leader>tn", vim.cmd.tabnext)
 vim.keymap.set("n", "<leader>tp", vim.cmd.tabprevious)
-
--- LSP
-vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover)

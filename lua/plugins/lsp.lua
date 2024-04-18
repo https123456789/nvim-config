@@ -18,6 +18,38 @@ return {
         config = function ()
             local lsp_zero = require('lsp-zero')
             lsp_zero.extend_cmp()
+
+            local cmp = require("cmp")
+            cmp.setup({
+                sources = {
+                    { name = "nvim_lsp" },
+                    { name = "luasnip" }
+                },
+                mapping = {
+                    ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+                    ["<C-k>"] = cmp.mapping.select_prev_item({behavior = 'select'}),
+                    ["<C-j>"] = cmp.mapping.select_next_item({behavior = 'select'}),
+                    ["<C-p>"] = cmp.mapping(function ()
+                        if cmp.visible() then
+                            cmp.select_prev_item({behavior = 'insert'})
+                        else
+                            cmp.complete()
+                        end
+                    end),
+                    ["<C-n>"] = cmp.mapping(function ()
+                        if cmp.visible() then
+                            cmp.select_next_item({behavior = 'insert'})
+                        else
+                            cmp.complete()
+                        end
+                    end),
+                },
+                snippet = {
+                    expand = function (args)
+                        require("luasnip").lua_expand(args.body)
+                    end
+                }
+            })
         end
     },
 
@@ -34,6 +66,17 @@ return {
         config = function ()
             local lsp_zero = require("lsp-zero")
             lsp_zero.extend_lspconfig()
+            lsp_zero.set_sign_icons({
+                error = '✘',
+                warn = '▲',
+                hint = '⚑',
+                info = '»'
+            })
+
+            lsp_zero.on_attach(function(client, bufnr)
+                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition)
+                vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover)
+            end)
 
             -- mason.nvim must be setup before mason-lspconfig
             require("mason").setup({})
