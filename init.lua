@@ -23,3 +23,7 @@ vim.keymap.set("n", "<leader>lz", vim.cmd.Lazy)
 
 -- Load any extra keymaps
 require("maps")
+
+vim.filetype.add({
+    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
