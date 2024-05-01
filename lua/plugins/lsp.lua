@@ -45,9 +45,9 @@ return {
                     end),
                 },
                 snippet = {
-                    expand = function (args)
-                        require("luasnip").lua_expand(args.body)
-                    end
+                    -- expand = function (args)
+                    --     require("luasnip").lua_expand(args.body)
+                    -- end
                 }
             })
         end
