@@ -7,6 +7,8 @@ return {
     keys = {
         { "<leader>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>",
             desc = "Find Files" },
+        { "<leader>pg", "<cmd>lua require('telescope.builtin').git_files()<cr>",
+            desc = "Find Git Files" },
         { "<leader>ps", "<cmd>lua require('telescope.builtin').live_grep()<cr>",
             desc = "Find String" },
     },
