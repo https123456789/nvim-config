@@ -74,7 +74,7 @@ return {
             })
 
             lsp_zero.on_attach(function(client, bufnr)
-                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition)
+                vim.keymap.set("n", "<leader>od", vim.lsp.buf.definition)
                 vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover)
                 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
             end)
@@ -97,7 +97,7 @@ return {
             lspconfig.rust_analyzer.setup({
                 settings = {
                     ["rust-analyzer"] = {
-                        checkOnSave = { command = "clippy" }
+                        checkOnSave = { command = "clippy" },
                     }
                 }
             })
