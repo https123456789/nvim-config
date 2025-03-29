@@ -27,3 +27,6 @@ require("maps")
 vim.filetype.add({
     pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
+
+-- Load LSP
+vim.lsp.enable('luals')

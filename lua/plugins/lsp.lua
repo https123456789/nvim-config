@@ -8,50 +8,91 @@ return {
         end
     },
 
-    -- Autocomplete
-    {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
-        dependencies = {
-            { "L3MON4D3/LuaSnip" }
-        },
-        config = function ()
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_cmp()
 
-            local cmp = require("cmp")
-            cmp.setup({
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" }
+    -- Autocomplete
+
+    {
+        "saghen/blink.cmp",
+        dependencies = { 'rafamadriz/friendly-snippets', { 'L3MON4D3/LuaSnip', version = 'v2.*' } },
+        version = '1.*',
+        opts = {
+            keymap = {
+                -- See :h blink-cmp-config-keymap for defining your own keymap
+                preset = "default",
+
+                ["<C-j>"] = { "select_next", "fallback" },
+                ["<C-k>"] = { "select_prev", "fallback" },
+                ['<C-i>'] = { 'show', 'show_documentation', 'hide_documentation' },
+            },
+            appearance = {
+                nerd_font_variant = 'mono'
+            },
+            completion = {
+                keyword = { range = 'full' },
+                documentation = {
+                    -- C-space to show docs
+                    auto_show = true
                 },
-                mapping = {
-                    ["<C-y>"] = cmp.mapping.confirm({ select = false }),
-                    ["<C-k>"] = cmp.mapping.select_prev_item({behavior = 'select'}),
-                    ["<C-j>"] = cmp.mapping.select_next_item({behavior = 'select'}),
-                    ["<C-p>"] = cmp.mapping(function ()
-                        if cmp.visible() then
-                            cmp.select_prev_item({behavior = 'insert'})
-                        else
-                            cmp.complete()
-                        end
-                    end),
-                    ["<C-n>"] = cmp.mapping(function ()
-                        if cmp.visible() then
-                            cmp.select_next_item({behavior = 'insert'})
-                        else
-                            cmp.complete()
-                        end
-                    end),
-                },
-                snippet = {
-                    -- expand = function (args)
-                    --     require("luasnip").lua_expand(args.body)
-                    -- end
+                ghost_text = { enabled = true },
+            },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+            fuzzy = { implementation = "prefer_rust_with_warning" },
+            snippets = { preset = 'luasnip' },
+            signature = {
+                enabled = true,
+                window = {
+                    show_documentation = false
                 }
-            })
-        end
+            }
+        },
+        opts_extend = { "sources.default" }
     },
+
+    -- {
+    --     "hrsh7th/nvim-cmp",
+    --     event = "InsertEnter",
+    --     dependencies = {
+    --         { "L3MON4D3/LuaSnip" }
+    --     },
+    --     config = function ()
+    --         local lsp_zero = require('lsp-zero')
+    --         lsp_zero.extend_cmp()
+    --
+    --         local cmp = require("cmp")
+    --         cmp.setup({
+    --             sources = {
+    --                 { name = "nvim_lsp" },
+    --                 { name = "luasnip" }
+    --             },
+    --             mapping = {
+    --                 ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+    --                 ["<C-k>"] = cmp.mapping.select_prev_item({behavior = 'select'}),
+    --                 ["<C-j>"] = cmp.mapping.select_next_item({behavior = 'select'}),
+    --                 ["<C-p>"] = cmp.mapping(function ()
+    --                     if cmp.visible() then
+    --                         cmp.select_prev_item({behavior = 'insert'})
+    --                     else
+    --                         cmp.complete()
+    --                     end
+    --                 end),
+    --                 ["<C-n>"] = cmp.mapping(function ()
+    --                     if cmp.visible() then
+    --                         cmp.select_next_item({behavior = 'insert'})
+    --                     else
+    --                         cmp.complete()
+    --                     end
+    --                 end),
+    --             },
+    --             snippet = {
+    --                 -- expand = function (args)
+    --                 --     require("luasnip").lua_expand(args.body)
+    --                 -- end
+    --             }
+    --         })
+    --     end
+    -- },
 
     -- LSP
     {
@@ -59,11 +100,22 @@ return {
         cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            { "hrsh7th/cmp-nvim-lsp" },
+            -- { "hrsh7th/cmp-nvim-lsp" },
             { "williamboman/mason.nvim", setup = true  },
             { "williamboman/mason-lspconfig.nvim" }
         },
-        config = function ()
+        opts = {
+            servers = {
+                rust_analyzer = {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = { command = "clippy" },
+                        }
+                    }
+                },
+            }
+        },
+        config = function (_, opts)
             local lsp_zero = require("lsp-zero")
             lsp_zero.extend_lspconfig()
             lsp_zero.set_sign_icons({
@@ -83,7 +135,6 @@ return {
             require("mason").setup({})
 
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls" },
                 handlers = {
                     function (server_name)
                         require("lspconfig")[server_name].setup({})
@@ -94,13 +145,18 @@ return {
             -- Other LSP servers have been installed externally from mason such as rust_analyzer
             -- via rustup. We have to manually call setup for these servers.
             local lspconfig = require("lspconfig")
-            lspconfig.rust_analyzer.setup({
-                settings = {
-                    ["rust-analyzer"] = {
-                        checkOnSave = { command = "clippy" },
-                    }
-                }
-            })
+            for server, config in pairs(opts.servers) do
+                config.capabilities = require("blink.cmp")
+                    .get_lsp_capabilities(config.capabilities)
+                lspconfig[server].setup(config)
+            end
+            -- lspconfig.rust_analyzer.setup({
+            --     settings = {
+            --         ["rust-analyzer"] = {
+            --             checkOnSave = { command = "clippy" },
+            --         }
+            --     }
+            -- })
         end
     },
     {
