@@ -23,6 +23,8 @@ return {
                 ["<C-j>"] = { "select_next", "fallback" },
                 ["<C-k>"] = { "select_prev", "fallback" },
                 ['<C-i>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                ["<Tab>"] = { "fallback" },
+                ["<Shift-Tab>"] = { "fallback" },
             },
             appearance = {
                 nerd_font_variant = 'mono'
