@@ -18,13 +18,16 @@ return {
         opts = {
             keymap = {
                 -- See :h blink-cmp-config-keymap for defining your own keymap
-                preset = "default",
+                preset = "none",
 
                 ["<C-j>"] = { "select_next", "fallback" },
                 ["<C-k>"] = { "select_prev", "fallback" },
                 ['<C-i>'] = { 'show', 'show_documentation', 'hide_documentation' },
-                ["<Tab>"] = { },
-                ["<Shift-Tab>"] = { },
+                ['<C-y>'] = { 'select_and_accept' },
+                ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+                ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+                ["<Tab>"] = { 'fallback' },
+                ["<Shift-Tab>"] = { 'fallback' },
             },
             appearance = {
                 nerd_font_variant = 'mono'
